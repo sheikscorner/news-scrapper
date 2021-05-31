@@ -14,7 +14,7 @@ app = FastAPI()
 register_tortoise(
     app,
     db_url="sqlite://store_db.db",
-    modules={'models':['. models']},
+    modules={'models':['environment.models']},
     generate_schemas = True,
     add_exception_handlers = True,
     
