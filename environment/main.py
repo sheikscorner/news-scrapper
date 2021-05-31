@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
-from .models import User_Pydantic, UserIn_Pydantic, User
+from . import models
+from models import User_Pydantic, UserIn_Pydantic, User
 from tortoise.contrib.fastapi import register_tortoise, HTTPNotFoundError
 from typing import List
 from fastapi.encoders import jsonable_encoder
