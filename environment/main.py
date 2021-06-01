@@ -90,3 +90,20 @@ async def dna_india(request: Request):
         dict[str(text_data)] = str(link_data.attrs['href'])
     json_compatible_item_data = jsonable_encoder(dict)
     return templates.TemplateResponse("display.html", {"request":request, "json_data":json_compatible_item_data})
+
+@app.get('/deccan_chronicle', response_class=HTMLResponse)
+async def deccan_chronicle(request: Request):
+    dict={}
+    URL="https://www.news18.com/india/"
+    page=requests.get(URL)
+    soup=BS(page.content, 'html.parser')
+    main_div = soup.find("div", class_="blog-list") 
+    data=main_div.find_all("h4")
+    for i in data:
+        #link_data = i.find("div", class_="blog-list-blog").find("a")
+        # link_data=i.find("div",class_="blog-list-blog").find("a")
+        # text_data = link_data.text
+        dict[i.find("a").text] = str(i.find("a")['href'])
+    json_compatible_item_data = jsonable_encoder(dict)
+    return templates.TemplateResponse("display.html", {"request":request, "json_data":json_compatible_item_data})
+
