@@ -18,7 +18,7 @@ register_tortoise(
     generate_schemas = True,
     add_exception_handlers = True,
     
-
+https://avatars.githubusercontent.com/u/85100480?s=60&v=4
 )
 
 
@@ -75,3 +75,20 @@ async def hacker_news(request: Request):
             dict[str(title.text)]=str(link['href'])
     json_compatible_item_data = jsonable_encoder(dict)
     return templates.TemplateResponse("display.html", {"request":request, "json_data":json_compatible_item_data})
+
+
+@app.get('/indian_express', response_class=HTMLResponse)
+async def dna_india(request: Request):
+    dict={}
+    URL="https://indianexpress.com/latest-news/"
+    page=requests.get(URL)
+    soup=BS(page.content, 'html.parser')
+    main_div=soup.find("div",class_="nation")
+    articles=main_div.find_all("div",class_="articles")
+    for i in articles:
+        link_data=i.find("div",class_="title").find("a", href=True)
+        text_data=link_data.text
+        dict[str(text_data)] = str(link_data.attrs['href'])
+    json_compatible_item_data = jsonable_encoder(dict)
+    return templates.TemplateResponse("display.html", {"request":request, "json_data":json_compatible_item_data})
+
