@@ -18,7 +18,6 @@ register_tortoise(
     generate_schemas = True,
     add_exception_handlers = True,
     
-https://avatars.githubusercontent.com/u/85100480?s=60&v=4
 )
 
 
