@@ -88,7 +88,7 @@ async def hacker_news(request: Request):
             
             dict1[str(title.text)].append(str(link['href']))
             print(dict1[str(title.text)])
-            article = Article(str(str(link['href']))
+            article = Article(str(link['href']))
             try:
                 article.download()
                 article.parse()
