@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from . models import User_Pydantic, UserIn_Pydantic, User
+from models import User_Pydantic, UserIn_Pydantic, User
 from tortoise.contrib.fastapi import register_tortoise, HTTPNotFoundError
 from typing import List
 from fastapi.encoders import jsonable_encoder
@@ -23,7 +23,7 @@ app = FastAPI()
 register_tortoise(
     app,
     db_url="sqlite://store_db.db",
-    modules={'models':['models']},
+    modules={'models':['environment.models']},
     generate_schemas = True,
     add_exception_handlers = True,
     
