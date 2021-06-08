@@ -12,7 +12,6 @@ from bs4 import BeautifulSoup as BS
 from collections import defaultdict
 import numpy as np
 import nltk 
-nltk.download('punkt')
 
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
@@ -49,10 +48,10 @@ async def login_success(request: Request, username: str = Form(...), password: s
     print(json_compatible_item_data, "33333333333333333333333")
     if json_compatible_item_data is not None:
         
-        print(json_compatible_item_data["username"], "22222222222222222")
+        
         return templates.TemplateResponse("homepage.html", {"request": request, "username":username})
     else:
-        print("NOOOOOOOOOOOOOOOOO")
+        
         status_code:int
         status_code = 500
         return templates.TemplateResponse("index.html", {"request":request, "status_code":status_code})
@@ -66,7 +65,6 @@ async def register(request :Request):
 async def create_user(request: Request, username: str = Form(...), password: str = Form(...)):
     p = await User.create(username=username, password=password)
     json_compatible_item_data = jsonable_encoder(p)
-    print(json_compatible_item_data, "1000000000000000000")
     return templates.TemplateResponse("index.html", {"request":request})
 
 
@@ -76,7 +74,6 @@ async def hacker_news(request: Request):
     dict1=defaultdict(list)
     URL="https://thehackernews.com/"
     page=requests.get(URL)
-    print("Helooooooooooooooooooooo")
     soup=BS(page.content, 'html.parser')
     results=soup.find_all('div', class_="blog-posts clear")
     for results_element in results:
@@ -88,15 +85,14 @@ async def hacker_news(request: Request):
             
             dict1[str(title.text)].append(str(link['href']))
             article = Article(str(link['href']))
-            #try:
-            article.download()
-            print(article)
-            article.parse()
-            article.nlp()
-            dict1[str(title.text)].append(article.summary)
-            #except Exception:
-                 #del dict1[str(title.text)]   
-    print(dict1)
+            try:
+                article.download()
+                article.parse()
+                article.nlp()
+                dict1[str(title.text)].append(article.summary)
+            except Exception:
+                 del dict1[str(title.text)]   
+    
     json_compatible_item_data = jsonable_encoder(dict1)
     return templates.TemplateResponse("display.html", {"request":request, "json_data":json_compatible_item_data})
 
