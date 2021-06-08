@@ -119,7 +119,7 @@ async def dna_india(request: Request):
             dict1[str(text_data)].append(article.summary)
         except Exception:
             del dict1[str(text_data)]
-    print(dict1)
+    
     json_compatible_item_data = jsonable_encoder(dict1)
     return templates.TemplateResponse("display.html", {"request":request, "json_data":json_compatible_item_data})
 
