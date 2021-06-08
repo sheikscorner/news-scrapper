@@ -88,14 +88,14 @@ async def hacker_news(request: Request):
             
             dict1[str(title.text)].append(str(link['href']))
             article = Article(str(link['href']))
-            try:
-                article.download()
-                print(article)
-                article.parse()
-                article.nlp()
-                dict1[str(title.text)].append(article.summary)
-            except Exception:
-                 del dict1[str(title.text)]   
+            #try:
+            article.download()
+            print(article)
+            article.parse()
+            article.nlp()
+            dict1[str(title.text)].append(article.summary)
+            #except Exception:
+                 #del dict1[str(title.text)]   
     print(dict1)
     json_compatible_item_data = jsonable_encoder(dict1)
     return templates.TemplateResponse("display.html", {"request":request, "json_data":json_compatible_item_data})
