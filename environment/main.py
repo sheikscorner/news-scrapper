@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup as BS
 from collections import defaultdict
 import numpy as np
 import nltk 
-nltk.download()
+nltk.download('punkt')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 import re
