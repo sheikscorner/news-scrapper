@@ -87,10 +87,10 @@ async def hacker_news(request: Request):
         for index,(title,link, desc) in enumerate(zip(title_elem, link_element, description)):
             
             dict1[str(title.text)].append(str(link['href']))
-            print(dict1[str(title.text)])
             article = Article(str(link['href']))
             try:
                 article.download()
+                print(article)
                 article.parse()
                 article.nlp()
                 dict1[str(title.text)].append(article.summary)
