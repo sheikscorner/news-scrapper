@@ -7,6 +7,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.8.2.js"></script> 
+
+  <style>
+
+  #loader {  
+    position: fixed;  
+    left: 0px;  
+    top: 0px;  
+    width: 100%;  
+    height: 100%;  
+    z-index: 9999;  
+    background: url("{{ url_for('static', path='/loader.gif')}}") 50% 50% no-repeat rgb(249,249,249);  
+}  
+  </style>
 </head>
 <body>
 
@@ -23,14 +37,39 @@
       Select a News Provider
     </button>
     <div class="dropdown-menu">
-      <button class="dropdown-item" style="width:1000px" type="submit" formaction="/hacker_news">Hacker News</button>
-      <button class="dropdown-item" style="width:1000px" type="submit" formaction="/indian_express">Indian Express</button>
-      <button class="dropdown-item" style="width:1000px" type="submit" formaction="/news_18">News 18</button>
+      <button class="dropdown-item" name="hacker-news" id="hacker-news" style="width:1000px" type="submit" formaction="/hacker_news">Hacker News</button>
+      <button class="dropdown-item" name="indian-express" id="indian-express" style="width:1000px" type="submit" formaction="/indian_express">Indian Express</button>
+      <button class="dropdown-item" name="news-18" id="news-18" style="width:1000px" type="submit" formaction="/news_18">News 18</button>
     </div>
     
   </div>
   </form>
 </div>
+<div id="loader"></div>  
+<script type="text/javascript">
+    $(window).load(function() {
+      document.getElementById('loader').style.display = 'none';
+    })
+</script>
+<script type="text/javascript">  
+  $('#hacker-news').click(function() {  
+    // $("#loader").fadeOut(1000);  
+    document.getElementById('loader').style.display = "inline";
+    
+  });
+  </script>
+<script type="text/javascript">  
+  $('#indian-express').click(function() {  
+    // $("#loader").fadeOut(1000);  
+    document.getElementById('loader').style.display = "inline";
 
+  });
+  </script>
+  <script type="text/javascript">  
+  $('#news-18').click(function() {  
+    // $("#loader").fadeOut(1000);  
+    document.getElementById('loader').style.display = "inline";
+  });
+</script>
 </body>
 </html>
