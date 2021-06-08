@@ -45,7 +45,6 @@ async def login_page(request :Request):
 async def login_success(request: Request, username: str = Form(...), password: str = Form(...)):
     p = await User_Pydantic.from_tortoise_orm(await User.get(username=username, password=password))
     json_compatible_item_data = jsonable_encoder(p)
-    print(json_compatible_item_data, "33333333333333333333333")
     if json_compatible_item_data is not None:
         
         
