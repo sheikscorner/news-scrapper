@@ -17,6 +17,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 import re
 from newspaper import Article
+import heroku3
+heroku_conn = heroku3.from_key('f3c85f49-7d38-41d6-ade3-61ff17db4977')
 app = FastAPI()
 
 register_tortoise(
@@ -146,3 +148,15 @@ async def deccan_chronicle(request: Request):
     return templates.TemplateResponse("display.html", {"request":request, "json_data":json_compatible_item_data})
 
         
+@app.get('/logs', response_class=HTMLResponse)
+async def get_logs(request : Request):
+    dict1=defaultdict(list)
+    app1 = heroku_conn.apps()['newsscrapperdemo']
+    log = str(app1.get_log(lines=50))
+    final_list = log.split("2021-")
+    result = "".join(final_list)
+    final_list_1=result.split("\n")
+    for i in final_list_1:
+        dict1["logs"].append(i)
+    json_compatible_item_data = jsonable_encoder(dict1)
+    return templates.TemplateResponse("logs.html", {"request":request, "json_data":json_compatible_item_data})
